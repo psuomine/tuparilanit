@@ -56,7 +56,7 @@ const Stats = () => {
             Most ADR
           </Text>
 
-          <Box maxWidth={500}>
+          <Box marginRight={200}>
             <Grid templateColumns="40px 1fr 100px" gap={6} mt="10" mb="6">
               <Flex
                 height="40px"
