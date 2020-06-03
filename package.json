@@ -14,6 +14,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "emotion-theming": "^10.0.27",
+    "framer-motion": "^1.11.0",
     "history": "^5.0.0-beta.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
