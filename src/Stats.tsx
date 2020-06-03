@@ -8,13 +8,14 @@ import {
   Divider,
   ListItem,
   Image,
+  SimpleGrid,
 } from "@chakra-ui/core";
 
 const sections = [1, 2, 3, 4];
 
 const Stats = () => {
   return (
-    <Grid width="100%" templateColumns="repeat(2, 1fr)" color="white">
+    <SimpleGrid width="100%" columns={{ sm: 1, xl: 2 }} color="white">
       {sections.map((item) => (
         <Box
           key={item}
@@ -25,18 +26,20 @@ const Stats = () => {
           borderRight={item % 2 !== 0 ? "1px" : 0}
           borderColor="brand.border"
           py="10"
-          px="16"
+          px={[8, null, 16]}
         >
           <Image
+            display={{ base: "none", md: "block" }}
             position="absolute"
             right="-150px"
             bottom="0"
-            size="500px"
+            size="400px"
             objectFit="cover"
             src="./sunny.png"
             alt="Sunny"
-            objectPosition="20% 40%"
+            objectPosition="0 -75px"
             ignoreFallback
+            maxHeight="80%"
           />
           <Text
             position="absolute"
@@ -56,7 +59,7 @@ const Stats = () => {
             Most ADR
           </Text>
 
-          <Box marginRight={200}>
+          <Box marginRight={{ md: 200 }}>
             <Grid templateColumns="40px 1fr 100px" gap={6} mt="10" mb="6">
               <Flex
                 height="40px"
@@ -195,7 +198,7 @@ const Stats = () => {
           </Box>
         </Box>
       ))}
-    </Grid>
+    </SimpleGrid>
   );
 };
 
