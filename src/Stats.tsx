@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -12,6 +12,11 @@ import {
 } from "@chakra-ui/core";
 import { motion } from "framer-motion";
 
+const loadingTexts = [
+  '"Everyone Rush A", Goes B',
+  'Hears a single footstep, "4 at A"',
+];
+
 const sections = [1, 2, 3, 4];
 
 const MotionImage = motion.custom(Image);
@@ -19,6 +24,7 @@ const MotionText = motion.custom(Text);
 const MotionList = motion.custom(List);
 const MotionListItem = motion.custom(ListItem);
 const MotionDivider = motion.custom(Divider);
+const MotionSpan = motion.custom(Box);
 
 const imageVariants = {
   hidden: { opacity: 0, x: 200 },
@@ -75,7 +81,7 @@ const listItemVariants = {
 const dividerVariants = {
   hidden: { width: 0 },
   visible: {
-    width: "100%",
+    width: "auto",
     transition: {
       ease: "easeOut",
       duration: 0.4,
@@ -83,7 +89,144 @@ const dividerVariants = {
   },
 };
 
+const loadingContainerVariants = {
+  start: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+  end: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const loadingCircleVariants = {
+  start: {
+    y: "0%",
+  },
+  end: {
+    y: "100%",
+  },
+};
+
+const loadingCircleTransition = {
+  duration: 0.4,
+  yoyo: Infinity,
+  ease: "easeInOut",
+};
+
+interface LanStats {
+  players: [Player];
+  stats: [StatSection];
+}
+
+interface Player {
+  imageSrc: string;
+  name: string;
+  playerId: string;
+}
+
+interface StatSection {
+  title: string;
+  stats: [Stat];
+}
+
+interface Stat {
+  average: number;
+  playerId: string;
+}
+
+enum Status {
+  loading = "LOADING",
+  success = "SUCCESS",
+}
+
+const loadingText =
+  loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
+
 const Stats = () => {
+  const [status, setStatus] = useState<Status>(Status.loading);
+  const [playersById, setPlayersById] = useState<{ [key: string]: Player }>({});
+  const [statsSection, setStatsSection] = useState<[StatSection] | []>([]);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      const res = await fetch("/.netlify/functions/stats");
+      const data = await res.json();
+
+      setStatus(Status.success);
+
+      const players = Object.fromEntries(
+        data.players.map((item: Player) => [item.playerId, item])
+      );
+
+      setPlayersById(players);
+      setStatsSection(data.stats);
+    };
+
+    if (status === Status.loading) {
+      loadStats();
+    }
+  }, [status]);
+
+  if (status === Status.loading) {
+    return (
+      <Flex flex={1} alignItems="center" justifyContent="center" color="white">
+        <Text fontWeight="semibold" fontSize="2xl" mr={1}>
+          {loadingText}
+        </Text>
+        <motion.div
+          style={{
+            width: "2rem",
+            height: "2rem",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+          variants={loadingContainerVariants}
+          initial="start"
+          animate="end"
+        >
+          <motion.span
+            variants={loadingCircleVariants}
+            transition={loadingCircleTransition}
+            style={{
+              display: "block",
+              width: "6px",
+              height: "6px",
+              backgroundColor: "white",
+              borderRadius: "0.25rem",
+            }}
+          ></motion.span>
+          <motion.span
+            variants={loadingCircleVariants}
+            transition={loadingCircleTransition}
+            style={{
+              display: "block",
+              width: "6px",
+              height: "6px",
+              backgroundColor: "white",
+              borderRadius: "0.25rem",
+            }}
+          ></motion.span>
+          <motion.span
+            variants={loadingCircleVariants}
+            transition={loadingCircleTransition}
+            style={{
+              display: "block",
+              width: "6px",
+              height: "6px",
+              backgroundColor: "white",
+              borderRadius: "0.25rem",
+            }}
+          ></motion.span>
+        </motion.div>
+      </Flex>
+    );
+  }
+
   return (
     <SimpleGrid width="100%" columns={{ sm: 1, xl: 2 }} color="white">
       {sections.map((item) => (

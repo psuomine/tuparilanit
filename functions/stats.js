@@ -1,8 +1,7 @@
+require("dotenv").config();
 const SteinStore = require("stein-js-client");
 
-const store = new SteinStore(
-  "https://api.steinhq.com/v1/storages/5ed1087683c30d0425e2c416"
-);
+const store = new SteinStore(process.env.STEIN_URL);
 
 const players = [
   {
