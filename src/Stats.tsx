@@ -24,7 +24,6 @@ const MotionText = motion.custom(Text);
 const MotionList = motion.custom(List);
 const MotionListItem = motion.custom(ListItem);
 const MotionDivider = motion.custom(Divider);
-const MotionSpan = motion.custom(Box);
 
 const imageVariants = {
   hidden: { opacity: 0, x: 200 },
@@ -235,7 +234,6 @@ const Stats = () => {
           overflow="hidden"
           position="relative"
           as="article"
-          borderTop="1px"
           borderRight={item % 2 !== 0 ? "1px" : 0}
           borderColor="brand.border"
           py="10"
