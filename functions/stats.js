@@ -24,6 +24,7 @@ exports.handler = async (event, context, callback) => {
 
   const workhorse = {
     title: "Workhorse",
+    description: "Most ADR",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "adr"),
       playerId,
@@ -32,6 +33,7 @@ exports.handler = async (event, context, callback) => {
 
   const bullseye = {
     title: "Bullseye",
+    description: "Highest headshot percentage",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "hsPercentage"),
       playerId,
@@ -40,6 +42,7 @@ exports.handler = async (event, context, callback) => {
 
   const flash = {
     title: "Flash",
+    description: "Most enemies flashed",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "flashedEnemies"),
       playerId,
@@ -48,6 +51,7 @@ exports.handler = async (event, context, callback) => {
 
   const tenderizer = {
     title: "Tenderizer",
+    description: "Most assists",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "assists"),
       playerId,
@@ -56,6 +60,7 @@ exports.handler = async (event, context, callback) => {
 
   const fragger = {
     title: "Fragger",
+    description: "Most kills",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "kills"),
       playerId,
@@ -64,6 +69,7 @@ exports.handler = async (event, context, callback) => {
 
   const fourWheelDrive = {
     title: "Four wheel drive",
+    description: "Most quadro kills",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "quadro"),
       playerId,
@@ -74,7 +80,7 @@ exports.handler = async (event, context, callback) => {
     statusCode: 200,
     body: JSON.stringify({
       players,
-      stats: [workhorse, bullseye, flash, tenderizer, fragger, fourWheelDrive],
+      stats: [fragger, workhorse, bullseye, flash, tenderizer, fourWheelDrive],
     }),
   };
 };
