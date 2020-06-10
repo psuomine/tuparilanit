@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 const loadingTexts = [
   '"Everyone Rush A", Goes B',
   'Hears a single footstep, "4 at A"',
+  "Kurwa!",
+  'Eco round! "Goutsi buys"',
+  "I reported him just in case",
 ];
 
 const loadingText =
