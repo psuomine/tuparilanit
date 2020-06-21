@@ -16,6 +16,8 @@ export const useStats = () => {
       const res = await fetch("/.netlify/functions/stats");
       const data = await res.json();
 
+      console.log("DATA", data);
+
       if (canceled) return;
 
       setStatus(FetchStatusEnum.success);

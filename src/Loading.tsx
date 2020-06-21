@@ -7,7 +7,7 @@ const loadingTexts = [
   'Hears a single footstep, "4 at A"',
   "Kurwa!",
   'Eco round! "Goutsi buys"',
-  "I reported him just in case",
+  "Report him just in case",
 ];
 
 const loadingText =

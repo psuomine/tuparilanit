@@ -53,7 +53,8 @@ const Stats = () => {
             overflow="hidden"
             position="relative"
             as="article"
-            borderRight={index % 2 !== 0 ? "1px" : 0}
+            borderRight={index % 2 === 0 ? "1px" : 0}
+            borderBottom="1px"
             borderColor="brand.border"
             py="10"
             px={[8, null, 16]}
@@ -61,6 +62,7 @@ const Stats = () => {
             <StatsSectionHeader
               title={item.title}
               description={item.description}
+              imageSrc={playersById[numberOne.playerId].imageSrc}
             />
 
             <Box marginRight={{ md: 200 }}>

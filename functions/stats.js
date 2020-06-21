@@ -14,6 +14,21 @@ const players = [
     name: "Peruna",
     imageSrc: "peruna",
   },
+  {
+    playerId: "73ab9cdd-d301-4567-8887-2819abb8a11e",
+    name: "EaN",
+    imageSrc: "sunny",
+  },
+  {
+    playerId: "9ab3f4bb-4554-458c-906c-c9e3d30f9e4d",
+    name: "Suokki",
+    imageSrc: "kennys",
+  },
+  {
+    playerId: "73eedbee-4042-4ab9-b7d8-4ac430358306",
+    name: "Samkuo",
+    imageSrc: "kennys",
+  },
 ];
 
 exports.handler = async (event, context, callback) => {
@@ -24,11 +39,18 @@ exports.handler = async (event, context, callback) => {
 
   const workhorse = {
     title: "Workhorse",
-    description: "Most ADR",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "adr"),
-      playerId,
-    })),
+    description: "Most ADR avg.",
+    stats: players
+      .map(({ playerId }) => ({
+        average: averageBasedOnProp(statsByPlayerId[playerId], "adr"),
+        playerId,
+      }))
+      .sort((stat1, stat2) => {
+        if (stat1.average < stat2.average) return -1;
+        if (stat1.average < stat2.average) return 1;
+
+        return 0;
+      }),
   };
 
   const bullseye = {
@@ -42,16 +64,26 @@ exports.handler = async (event, context, callback) => {
 
   const flash = {
     title: "Flash",
-    description: "Most enemies flashed",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "flashedEnemies"),
-      playerId,
-    })),
+    description: "Most enemies flashed avg.",
+    stats: players
+      .map(({ playerId }) => ({
+        average: averageBasedOnProp(
+          statsByPlayerId[playerId],
+          "flashedEnemies"
+        ),
+        playerId,
+      }))
+      .sort((stat1, stat2) => {
+        if (stat1.average > stat2.average) return -1;
+        if (stat1.average < stat2.average) return 1;
+
+        return 0;
+      }),
   };
 
   const tenderizer = {
     title: "Tenderizer",
-    description: "Most assists",
+    description: "Most assists avg.",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "assists"),
       playerId,
@@ -60,7 +92,7 @@ exports.handler = async (event, context, callback) => {
 
   const fragger = {
     title: "Fragger",
-    description: "Most kills",
+    description: "Most kills avg.",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "kills"),
       playerId,
@@ -69,7 +101,7 @@ exports.handler = async (event, context, callback) => {
 
   const fourWheelDrive = {
     title: "Four wheel drive",
-    description: "Most quadro kills",
+    description: "Most quadro kills avg.",
     stats: players.map(({ playerId }) => ({
       average: averageBasedOnProp(statsByPlayerId[playerId], "quadro"),
       playerId,

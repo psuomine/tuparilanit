@@ -45,24 +45,23 @@ const subtitleVariants = {
 interface StatsSectionHeaderProps {
   title: string;
   description: string;
+  imageSrc: string;
 }
 
 const StatsSectionHeader = ({
   title,
   description,
+  imageSrc,
 }: StatsSectionHeaderProps) => {
   return (
     <>
       <MotionImage
         display={{ base: "none", md: "block" }}
         position="absolute"
-        right="-150px"
+        right="-60px"
         bottom="0"
-        size="400px"
-        objectFit="cover"
-        src="./sunny.png"
+        src={`./${imageSrc}.png`}
         alt="Sunny"
-        objectPosition="0 -75px"
         ignoreFallback
         maxHeight="80%"
         initial="hidden"
