@@ -45,21 +45,18 @@ exports.handler = async (event, context, callback) => {
         average: averageBasedOnProp(statsByPlayerId[playerId], "adr"),
         playerId,
       }))
-      .sort((stat1, stat2) => {
-        if (stat1.average < stat2.average) return -1;
-        if (stat1.average < stat2.average) return 1;
-
-        return 0;
-      }),
+      .sort(sortStatsDesc),
   };
 
   const bullseye = {
     title: "Bullseye",
     description: "Highest headshot percentage",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "hsPercentage"),
-      playerId,
-    })),
+    stats: players
+      .map(({ playerId }) => ({
+        average: averageBasedOnProp(statsByPlayerId[playerId], "hsPercentage"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
   };
 
   const flash = {
@@ -73,39 +70,40 @@ exports.handler = async (event, context, callback) => {
         ),
         playerId,
       }))
-      .sort((stat1, stat2) => {
-        if (stat1.average > stat2.average) return -1;
-        if (stat1.average < stat2.average) return 1;
-
-        return 0;
-      }),
+      .sort(sortStatsDesc),
   };
 
   const tenderizer = {
     title: "Tenderizer",
-    description: "Most assists avg.",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "assists"),
-      playerId,
-    })),
+    description: "Most assists",
+    stats: players
+      .map(({ playerId }) => ({
+        average: sumBasedOnProp(statsByPlayerId[playerId], "assists"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
   };
 
   const fragger = {
     title: "Fragger",
-    description: "Most kills avg.",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "kills"),
-      playerId,
-    })),
+    description: "Most kills",
+    stats: players
+      .map(({ playerId }) => ({
+        average: sumBasedOnProp(statsByPlayerId[playerId], "kills"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
   };
 
   const fourWheelDrive = {
     title: "Four wheel drive",
-    description: "Most quadro kills avg.",
-    stats: players.map(({ playerId }) => ({
-      average: averageBasedOnProp(statsByPlayerId[playerId], "quadro"),
-      playerId,
-    })),
+    description: "Most quadro kills.",
+    stats: players
+      .map(({ playerId }) => ({
+        average: sumBasedOnProp(statsByPlayerId[playerId], "quadro"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
   };
 
   return {
@@ -126,7 +124,23 @@ const averageBasedOnProp = (playerStats, propName) => {
   return sum / playerStats.length;
 };
 
+const sumBasedOnProp = (playerStats, propName) => {
+  const sum = playerStats.reduce(
+    (acc, currentStat) => acc + Number(currentStat[propName]),
+    0
+  );
+
+  return sum;
+};
+
 const normalizeStatsReducer = (acc, currentStat) => ({
   ...acc,
   [currentStat.playerId]: [...(acc[currentStat.playerId] || []), currentStat],
 });
+
+const sortStatsDesc = (stat1, stat2) => {
+  if (stat1.average > stat2.average) return -1;
+  if (stat1.average < stat2.average) return 1;
+
+  return 0;
+};
