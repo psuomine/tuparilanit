@@ -8,6 +8,10 @@ const loadingTexts = [
   "Kurwa!",
   'Eco round! "Goutsi buys"',
   "Report him just in case",
+  "Ruohokaares o...",
+  "Please remove csgo",
+  "The only thing i smoke is mid!",
+  "The call was rush and i rushed alone :(",
 ];
 
 const loadingText =
