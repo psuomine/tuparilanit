@@ -12,7 +12,7 @@ const players = [
   {
     playerId: "7dfdaac8-2f0a-47c1-a199-18317410a0da",
     name: "Peruna",
-    imageSrc: "peruna",
+    imageSrc: "dupreeh",
   },
   {
     playerId: "73ab9cdd-d301-4567-8887-2819abb8a11e",
@@ -27,7 +27,7 @@ const players = [
   {
     playerId: "73eedbee-4042-4ab9-b7d8-4ac430358306",
     name: "Samkuo",
-    imageSrc: "kennys",
+    imageSrc: "xseven",
   },
 ];
 
@@ -106,11 +106,42 @@ exports.handler = async (event, context, callback) => {
       .sort(sortStatsDesc),
   };
 
+  const rip = {
+    title: "RIP",
+    description: "Most deaths.",
+    stats: players
+      .map(({ playerId }) => ({
+        average: sumBasedOnProp(statsByPlayerId[playerId], "deaths"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
+  };
+
+  const aces = {
+    title: "Ace Of Spades",
+    description: "Most aces",
+    stats: players
+      .map(({ playerId }) => ({
+        average: sumBasedOnProp(statsByPlayerId[playerId], "aces"),
+        playerId,
+      }))
+      .sort(sortStatsDesc),
+  };
+
   return {
     statusCode: 200,
     body: JSON.stringify({
       players,
-      stats: [fragger, workhorse, bullseye, flash, tenderizer, fourWheelDrive],
+      stats: [
+        fragger,
+        rip,
+        workhorse,
+        bullseye,
+        tenderizer,
+        flash,
+        fourWheelDrive,
+        aces,
+      ],
     }),
   };
 };
