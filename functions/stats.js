@@ -42,7 +42,9 @@ exports.handler = async (event, context, callback) => {
     description: "Most ADR avg.",
     stats: players
       .map(({ playerId }) => ({
-        average: averageBasedOnProp(statsByPlayerId[playerId], "adr"),
+        average: averageBasedOnProp(statsByPlayerId[playerId], "adr").toFixed(
+          2
+        ),
         playerId,
       }))
       .sort(sortStatsDesc),
@@ -53,7 +55,10 @@ exports.handler = async (event, context, callback) => {
     description: "Highest headshot percentage",
     stats: players
       .map(({ playerId }) => ({
-        average: averageBasedOnProp(statsByPlayerId[playerId], "hsPercentage"),
+        average: averageBasedOnProp(
+          statsByPlayerId[playerId],
+          "hsPercentage"
+        ).toFixed(2),
         playerId,
       }))
       .sort(sortStatsDesc),
@@ -67,7 +72,7 @@ exports.handler = async (event, context, callback) => {
         average: averageBasedOnProp(
           statsByPlayerId[playerId],
           "flashedEnemies"
-        ),
+        ).toFixed(2),
         playerId,
       }))
       .sort(sortStatsDesc),
