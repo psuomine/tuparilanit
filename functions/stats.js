@@ -111,17 +111,6 @@ exports.handler = async (event, context, callback) => {
       .sort(sortStatsDesc),
   };
 
-  const rip = {
-    title: "RIP",
-    description: "Most deaths",
-    stats: players
-      .map(({ playerId }) => ({
-        average: sumBasedOnProp(statsByPlayerId[playerId], "deaths"),
-        playerId,
-      }))
-      .sort(sortStatsDesc),
-  };
-
   const aces = {
     title: "Ace Of Spades",
     description: "Most aces",
@@ -139,7 +128,6 @@ exports.handler = async (event, context, callback) => {
       players,
       stats: [
         fragger,
-        rip,
         workhorse,
         bullseye,
         tenderizer,
