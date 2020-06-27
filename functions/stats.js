@@ -102,7 +102,7 @@ exports.handler = async (event, context, callback) => {
 
   const fourWheelDrive = {
     title: "Four wheel drive",
-    description: "Most quadro kills.",
+    description: "Most quadro kills",
     stats: players
       .map(({ playerId }) => ({
         average: sumBasedOnProp(statsByPlayerId[playerId], "quadro"),
@@ -113,7 +113,7 @@ exports.handler = async (event, context, callback) => {
 
   const rip = {
     title: "RIP",
-    description: "Most deaths.",
+    description: "Most deaths",
     stats: players
       .map(({ playerId }) => ({
         average: sumBasedOnProp(statsByPlayerId[playerId], "deaths"),
@@ -175,8 +175,8 @@ const normalizeStatsReducer = (acc, currentStat) => ({
 });
 
 const sortStatsDesc = (stat1, stat2) => {
-  if (stat1.average > stat2.average) return -1;
-  if (stat1.average < stat2.average) return 1;
+  if (Number(stat1.average) > Number(stat2.average)) return -1;
+  if (Number(stat1.average) < Number(stat2.average)) return 1;
 
   return 0;
 };
