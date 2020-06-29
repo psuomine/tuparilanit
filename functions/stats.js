@@ -3,7 +3,7 @@ const SteinStore = require("stein-js-client");
 
 const store = new SteinStore(process.env.STEIN_URL);
 
-/*const players = [
+const players = [
   {
     playerId: "fef56871-40b7-4b9f-91a9-a9baa5d392d6",
     name: "TOHTORI SAATANA",
@@ -28,34 +28,6 @@ const store = new SteinStore(process.env.STEIN_URL);
     playerId: "73eedbee-4042-4ab9-b7d8-4ac430358306",
     name: "Samkuo",
     imageSrc: "xseven",
-  },
-];*/
-
-const players = [
-  {
-    playerId: "fef56871-40b7-4b9f-91a9-a9baa5d392d6",
-    name: "TOHTORI SAATANA",
-    imageSrc: "sunny",
-  },
-  {
-    playerId: "7dfdaac8-2f0a-47c1-a199-18317410a0da",
-    name: "Peruna",
-    imageSrc: "sunny",
-  },
-  {
-    playerId: "73ab9cdd-d301-4567-8887-2819abb8a11e",
-    name: "EaN",
-    imageSrc: "sunny",
-  },
-  {
-    playerId: "9ab3f4bb-4554-458c-906c-c9e3d30f9e4d",
-    name: "Suokki",
-    imageSrc: "sunny",
-  },
-  {
-    playerId: "73eedbee-4042-4ab9-b7d8-4ac430358306",
-    name: "Samkuo",
-    imageSrc: "sunny",
   },
 ];
 
